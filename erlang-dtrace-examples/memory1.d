@@ -17,7 +17,7 @@
  * 
  * %CopyrightEnd%
  */
-
+/* sending message will use copy-sturct ?  need identify. */
 erlang*:::copy-struct
 {
     printf("copy_struct %d bytes\n", arg0);
