@@ -1,4 +1,4 @@
-/* example usage: dtrace -q -s /path/to/memory1.d */
+/* example usage: dtrace -q -s /path/to/spawn-exit.d */
 /*
  * %CopyrightBegin%
  * 
@@ -18,25 +18,18 @@
  * %CopyrightEnd%
  */
 
-erlang*:::copy-struct
+erlang*:::process-spawn
+/*  track specific process by mfa */ 
+/$1 == copyinstr(arg1)/
+/*  track specific process by pid */ 
+/* /$1 == copyinstr(arg0)/ */
 {
-    printf("copy_struct %d bytes\n", arg0);
+    printf("pid %s mfa %s\n", copyinstr(arg0), copyinstr(arg1));
 }
 
-erlang*:::copy-object
+erlang*:::process-exit
+/$1 == copyinstr(arg1)/
 {
-    printf("copy_object pid %s %d bytes\n", copyinstr(arg0), arg1);
-}
-
-erlang*:::process-heap_grow
-{
-    printf("proc heap grow pid %s %d -> %d bytes\n", copyinstr(arg0),
-	   arg1, arg2);
-}
-
-erlang*:::process-heap_shrink
-{
-    printf("proc heap shrink pid %s %d -> %d bytes\n", copyinstr(arg0),
-	   arg1, arg2);
+    printf("pid %s reason %s\n", copyinstr(arg0), copyinstr(arg1));
 }
 

@@ -19,6 +19,10 @@
  */
 
 erlang*:::process-spawn
+/*  track specific process by mfa */ 
+/* /$1 == copyinstr(arg1)/ */
+/*  track specific process by pid */ 
+/* /$1 == copyinstr(arg0)/ */
 {
     printf("pid %s mfa %s\n", copyinstr(arg0), copyinstr(arg1));
 }

@@ -18,8 +18,6 @@
  * %CopyrightEnd%
  */
 
-/* what about call external code through port? */
-
 BEGIN
 {
         driver_map["tcp_inet", 1] = "OPEN";
